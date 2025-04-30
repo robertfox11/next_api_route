@@ -10,7 +10,7 @@ interface Segments {
 }
 
 const getTodo = async( id: string ):Promise<Todo | null> => {
-
+  //obtiene la id del  modelo 
   const todo = await prisma.todo.findFirst({ where: { id } });
 
   return todo;
@@ -21,11 +21,11 @@ const getTodo = async( id: string ):Promise<Todo | null> => {
 
 export async function GET(request: Request, { params }: Segments ) { 
 
-  
-  const todo = await getTodo(params.id);
+  const {id} = await params;
+  const todo = await getTodo(id);
 
   if ( !todo ) {
-    return NextResponse.json({ message: `Todo con id ${ params.id } no exite` }, { status: 404 });
+    return NextResponse.json({ message: `Todo con id ${ id } no exite` }, { status: 404 });
   }
 
 
@@ -40,12 +40,12 @@ const putSchema = yup.object({
 })
 
 export async function PUT(request: Request, { params }: Segments ) { 
-
+  const {id} = await params;
   
-  const todo = await getTodo(params.id);
+  const todo = await getTodo(id);
 
   if ( !todo ) {
-    return NextResponse.json({ message: `Todo con id ${ params.id } no exite` }, { status: 404 });
+    return NextResponse.json({ message: `Todo con id ${ id } no exite` }, { status: 404 });
   }
 
   try {
@@ -53,7 +53,7 @@ export async function PUT(request: Request, { params }: Segments ) {
   
   
     const updatedTodo = await prisma.todo.update({
-      where: { id: params.id },
+      where: { id: id },
       data: { complete, description }
     })
   

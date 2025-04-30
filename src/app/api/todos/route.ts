@@ -26,7 +26,7 @@ export async function GET(request: Request) {
 }
 
 
-
+/*Schema que validad lo que vamos a enviar los endpoints yup realiza la validacion*/
 const postSchema = yup.object({
   description: yup.string().required(),
   complete: yup.boolean().optional().default(false),
