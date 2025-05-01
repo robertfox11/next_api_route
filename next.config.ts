@@ -3,8 +3,21 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ['tailus.io'],
-  },
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'tailus.io'
+      },
+      {
+        protocol: 'https',
+        hostname: 'oxymor-st.tailus.io'
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com'
+      }
+    ]
+  }
 };
 
 export default nextConfig;
