@@ -7,6 +7,7 @@ module.exports = {
       './src/app/pokemons/**/*.{js,ts,jsx,tsx,mdx}',
       './src/pokemons/**/*.{js,ts,jsx,tsx,mdx}',
       './src/shopping-cart/**/*.{js,ts,jsx,tsx,mdx}',
+      "./node_modules/@tailus/themer/dist/components/**/*.{js,ts}",
     ],
     theme: {
       extend: {
