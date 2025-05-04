@@ -5,8 +5,8 @@
 import Image from "next/image"
 import { IoAddCircleOutline, IoTrashOutline } from "react-icons/io5";
 import { Star } from "./Star";
-//import { addProductToCart, removeProductFromCart } from "@/shopping-cart/actions/actions";
 import { useRouter } from "next/navigation";
+import { addProductToCart } from "@/shopping-cart/actions/actions";
 
 interface Props {
   id    : string;
@@ -23,7 +23,7 @@ export const ProductCard = ({ id, name, price, rating, image }:Props) => {
   const router = useRouter();
 
   const onAddToCart = () => {
-  //  addProductToCart(id);
+    addProductToCart(id);//llamamos la funcion para que agregue al producto
     router.refresh();
   }
 
