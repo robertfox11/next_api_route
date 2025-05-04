@@ -44,13 +44,13 @@ export const removeProductFromCart = ( id:string ) =>{
 export const removeSingleItemFromCart = ( id: string ) => {
   //tomar el carro de la cookies
   const cookieCart = getCookieCart();
-  if ( !cookieCart[id] ) return;
-  const itemsInCart = cookieCart[id] - 1;
+  if ( !cookieCart[id] ) return;//si no tenemos en la cookie cart no hay nada que hacer
+  const itemsInCart = cookieCart[id] - 1;//si el car es menos -1
 
   if ( itemsInCart <= 0 ) {
-    delete cookieCart[id];
+    delete cookieCart[id]; //eliminamos el elemento 
   } else {
-    cookieCart[id] = itemsInCart;
+    cookieCart[id] = itemsInCart;// si actualizamos el valor el elemento 
   }
 
   setCookie('cart', JSON.stringify(cookieCart));

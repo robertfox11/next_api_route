@@ -35,7 +35,7 @@ export default async function CartPage() {
   const cart = JSON.parse( cookiesStore.get('cart')?.value ?? '{}' ) as { [id:string]: number };
   const productsInCart = getProductsInCart(cart);
 
-  //con el arreglo 
+  //function reduce para sumar los arreglos 
   const totalToPay = productsInCart.reduce( 
     ( prev, current) => ( current.product.price * current.quantity ) + prev , 0 );
 
