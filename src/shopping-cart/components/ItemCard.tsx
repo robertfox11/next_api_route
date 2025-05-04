@@ -59,14 +59,9 @@ export const ItemCard = ({ product, quantity }: Props) => {
           <span className="font-bold text-white">
             Total: ${ (product.price * quantity).toFixed(2) }
           </span>
-          
-
-
         </div>
-
-
       </div>
-
+      
       <div className="flex p-5 items-center justify-center">
         <button
           onClick={ onAddToCart }
