@@ -2,8 +2,11 @@ import Image from 'next/image';
 import React from 'react'
 import { CiBellOn, CiBookmarkCheck, CiChat1, CiLogout, CiMenuBurger, CiSearch } from 'react-icons/ci';
 import { SidebarItem } from './SidebarItem';
-import { IoCalendarOutline, IoCheckboxOutline, IoCodeWorking, IoListOutline, IoPlayForwardOutline } from 'react-icons/io5';
+import { IoCalendarOutline, IoCheckboxOutline, IoCodeWorking, IoListOutline, IoPerson, IoPersonOutline, IoPlayForwardOutline } from 'react-icons/io5';
 import Link from 'next/link';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { redirect } from 'next/navigation';
 
 const menuItems = [
   {
@@ -31,9 +34,19 @@ const menuItems = [
     title: 'Products',
     path: '/dashboard/products'
   },
+  {
+    icon: <IoPersonOutline />,
+    title: 'Profile',
+    path: '/dashboard/profile'
+  },
 ]
 
-export const Sidebar = () => {
+export const Sidebar = async () => {
+   const session = await getServerSession(authOptions); //lo importamos del path 
+  
+    if (!session) {
+      redirect('/api/auth/signin');
+    }
   return (
     <>
       {/* TODO: src/components <Sidebar /> */}
@@ -58,12 +71,12 @@ export const Sidebar = () => {
             {/* Next/Image */}
             <Image
               className="m-auto rounded-full object-cover lg:w-28 lg:h-28"
-              src="https://avatars.githubusercontent.com/u/47919550?v=4"
+              src={`${session.user?.image}`}
               alt="tailus logo"
               width={100}
               height={100}
             />
-            <h5 className="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">Cynthia J. Watts</h5>
+            <h5 className="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{session.user?.name}</h5>
             <span className="hidden text-gray-400 lg:block">Admin</span>
           </div>
 
