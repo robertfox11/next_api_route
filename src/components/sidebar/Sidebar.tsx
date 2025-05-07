@@ -1,3 +1,4 @@
+'use server'
 import Image from 'next/image';
 import React from 'react'
 import { CiBellOn, CiBookmarkCheck, CiChat1, CiLogout, CiMenuBurger, CiSearch } from 'react-icons/ci';
@@ -8,6 +9,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
 import { LogoutBotton } from './LogoutBotton';
+import { Session } from "next-auth"
 
 const menuItems = [
   {
@@ -41,10 +43,12 @@ const menuItems = [
     path: '/dashboard/profile'
   },
 ]
+type Props = {
+  session: Session | null
+}
+export const Sidebar = async ({session}: Props) => {
 
-export const Sidebar = async () => {
-   const session = await getServerSession(authOptions); //lo importamos del path 
-  
+    console.log(session)
     if (!session) {
       redirect('/api/auth/signin');
     }
@@ -72,12 +76,12 @@ export const Sidebar = async () => {
             {/* Next/Image */}
             <Image
               className="m-auto rounded-full object-cover lg:w-28 lg:h-28"
-              src={`${session.user?.image}`}
+              src={`${session?.user?.image}`}
               alt="tailus logo"
               width={100}
               height={100}
             />
-            <h5 className="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{session.user?.name}</h5>
+            <h5 className="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{session?.user?.name}</h5>
             <span className="hidden text-gray-400 lg:block">Admin</span>
           </div>
 
