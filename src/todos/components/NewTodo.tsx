@@ -21,8 +21,9 @@ export const NewTodo = () => {
 
     //todosApi.createTodo(description);
     await addTodo(description);
+    router.refresh();
     setDescription('');
-    //router.refresh();
+
   }
   
  /* const deleteCompleted = async() => {

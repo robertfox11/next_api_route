@@ -52,6 +52,13 @@ export const Sidebar = async ({session}: Props) => {
     if (!session) {
       redirect('/api/auth/signin');
     }
+
+    const avatarUrl = ( session?.user?.image )
+    ? session.user.image
+    : 'https://tailus.io/sources/blocks/stats-cards/preview/images/second_user.webp';
+
+    const userName = session?.user?.name ?? 'No Name';
+    const userRoles = session?.user?.roles ?? ['client'];
   return (
     <>
       {/* TODO: src/components <Sidebar /> */}
@@ -76,13 +83,13 @@ export const Sidebar = async ({session}: Props) => {
             {/* Next/Image */}
             <Image
               className="m-auto rounded-full object-cover lg:w-28 lg:h-28"
-              src={`${session?.user?.image}`}
+              src={avatarUrl}
               alt="tailus logo"
               width={100}
               height={100}
             />
-            <h5 className="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{session?.user?.name}</h5>
-            <span className="hidden text-gray-400 lg:block">Admin</span>
+            <h5 className="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">{userName}</h5>
+            <span className="hidden text-gray-400 lg:block">{userRoles.join(',')}</span>
           </div>
 
           <ul className="space-y-2 tracking-wide mt-8">

@@ -1,8 +1,10 @@
 'use server';
 
+import { getUserSessionServer } from "@/auth/components/actions/auth-action";
 import prisma from "@/lib/prisma";
 import { Todo } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import { NextResponse } from "next/server";
 
 
 const sleep = (seconds: number = 0 ): Promise<boolean> => {
@@ -33,18 +35,22 @@ export const toggleTodo = async( id: string, complete: boolean ): Promise<Todo> 
 }
 
 
-export const createTodo = async( description: string ) => {
-  const todo = await prisma.todo.create({ data: { description } });
+export const createTodo = async( description: string, userId:string ) => {
+  const todo = await prisma.todo.create({ data: { description, userId: '...' } });
   revalidatePath('/dashboard/server-accounts');
 
   return todo;
 }
  
 export const addTodo = async( description: string ) => {
+    const user =  await getUserSessionServer();
+    if (!user) {
+     return NextResponse.json('No autorizado', {status: 401}) 
+    }
   
     try {
   
-      const todo = await prisma.todo.create({ data: { description } })
+      const todo = await prisma.todo.create({ data: { description, userId:user.id} })
       revalidatePath('/dashboard/server-accounts');
       
       return todo;

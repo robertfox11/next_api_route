@@ -44,6 +44,10 @@ npx prisma generate //genera el cliente de prisma para hacer manipulaciones en l
 Ejecutar el SEED para crear la base de datos local
 ```
 
+## nota: usuario por defecto
+__usuario:__ test1@google.com
+__password:__ 123456
+
 First, run the development server:
 
 ```bash
